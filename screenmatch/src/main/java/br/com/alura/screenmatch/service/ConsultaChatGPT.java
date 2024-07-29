@@ -8,7 +8,7 @@ public class ConsultaChatGPT {
 
     public static String obterTraducao(String texto) {
         try {
-            String apiKey = "sk-proj-GAGTLJbVBEXeSHG9dSB0T3BlbkFJxcFU14sI1YMgviZbemBU";
+            String apiKey = "cole sua chave da api";
             OpenAiService service = new OpenAiService(apiKey);
 
             CompletionRequest requisicao = CompletionRequest.builder()
