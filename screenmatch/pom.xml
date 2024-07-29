@@ -54,6 +54,19 @@
 			<artifactId>service</artifactId>
 			<version>0.14.0</version>
 		</dependency>
+
+		<!--Conectando ao banco de dados-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
