@@ -21,4 +21,8 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
     //buscar por categoria
     List<Serie> findByGenero(Categoria categoria);
+
+    //buscando por total e temporadas e com avaliacao
+    List<Serie> findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual (
+            Integer totalTemporadas, Double avaliacao);
 }
