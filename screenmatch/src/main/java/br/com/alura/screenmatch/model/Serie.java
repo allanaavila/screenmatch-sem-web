@@ -10,7 +10,6 @@ import java.util.OptionalDouble;
 @Entity
 @Table(name = "series")
 
-
 public class Serie {
 
     @Id
@@ -30,7 +29,7 @@ public class Serie {
     private String poster;
     private String sinopse;
 
-    @Transient
+   @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episodios> episodios = new ArrayList<>();
 
     //construtor padrão
@@ -60,7 +59,9 @@ public class Serie {
         return episodios;
     }
 
+    //relacionando com chave estrangeira entre episodios com serie
     public void setEpisodios(List<Episodios> episodios) {
+        episodios.forEach(e -> e.setSerie(this));
         this.episodios = episodios;
     }
 
@@ -128,6 +129,7 @@ public class Serie {
                 ", avaliacao= " + avaliacao +
                 ", atores=' " + atores + '\'' +
                 ", poster=' " + poster + '\'' +
-                ", sinopse=' " + sinopse + '\'' ;
+                ", sinopse=' " + sinopse + '\'' +
+                ", episodios=' " + episodios + '\'' ;
     }
 }
