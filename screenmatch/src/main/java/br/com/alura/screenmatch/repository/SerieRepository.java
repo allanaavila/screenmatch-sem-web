@@ -25,8 +25,8 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
     List<Serie> findByGenero(Categoria categoria);
 
     //buscando por total e temporadas e com avaliacao
-//    List<Serie> findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual (
-//            Integer totalTemporadas, Double avaliacao);
+    List<Serie> findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual (
+            Integer totalTemporadas, Double avaliacao);
 
     //buscando por total e temporadas e com avaliacao atraves do banco JPQL
     @Query("SELECT s FROM Serie s WHERE " +
@@ -38,18 +38,28 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
     List<Episodios> episodiosPorTrecho(String trechoEpisodio);
 
     //listando por episodio por serie
-    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie ORDER BY e.avaliacao DESC LIMIT 5")
+    @Query("SELECT e FROM Serie s " +
+            "JOIN s.episodios e WHERE s = :serie " +
+            "ORDER BY e.avaliacao DESC LIMIT 5")
     List<Episodios> topEpisodiosPorSerie(Serie serie);
 
     //criar uma lista atraves da data de lancamento
-    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie " +
+    @Query("SELECT e FROM Serie s " +
+            "JOIN s.episodios e WHERE s = :serie " +
             "AND YEAR(e.dataLancamento) >= :anoLancamento")
     List<Episodios> episodiosPorSerieEAno(Serie serie, int anoLancamento);
 
     List<Serie> findTop5ByOrderByEpisodiosDataLancamentoDesc();
+
+
     @Query("SELECT s FROM Serie s " +
             "JOIN s.episodios e " +
             "GROUP BY s " +
             "ORDER BY MAX(e.dataLancamento) DESC LIMIT 5")
-    List<Serie> encontrarEpisodiosMaisRecentes();
+    List<Serie> lancamentosMaisRecentes();
+
+    @Query("SELECT e FROM Serie s " +
+            "JOIN s.episodios e WHERE s.id = :id " +
+            "AND e.temporada = :numero")
+    List<Episodios> obterEpisodiosPorTemporada(Long id, Long numero);
 }
